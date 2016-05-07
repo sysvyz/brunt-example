@@ -1,0 +1,17 @@
+{
+  "require": {
+    "sysvyz/brunt": "dev-master",
+    "doctrine/collections": "^v1.3.0",
+    "symfony/http-foundation": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.3.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Svz\\": "src",
+      "SvzTest\\": "test"
+    }
+  }
+
+}
