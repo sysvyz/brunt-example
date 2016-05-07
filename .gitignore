@@ -108,7 +108,7 @@ nbactions.xml
 .c9
 ### Emacs template
 # -*- mode: gitignore; -*-
-*~
+
 \#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
@@ -139,7 +139,6 @@ tramp
 
 # cask packages
 .cask/
-dist/
 
 # Flycheck
 flycheck_*.el
@@ -156,7 +155,6 @@ flycheck_*.el
 Session.vim
 # temporary
 .netrwhist
-*~
 # auto-generated tag files
 tags
 ### SlickEdit template
@@ -184,12 +182,10 @@ dwsync.xml
 dw_php_codehinting.config
 *.mno
 ### DartEditor template
-.project
 .buildlog
 ### BricxCC template
 # Bricx Command Center IDE
 # http://bricxcc.sourceforge.net
-*.bak
 *.sym
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
@@ -276,7 +272,6 @@ composer.phar
 .cvsignore
 */.cvsignore
 ### FlexBuilder template
-bin/
 bin-debug/
 bin-release/
 ### EiffelStudio template
@@ -337,7 +332,6 @@ vendor
 *.twx
 *.unroutes
 *.ut
-*.xpi
 *.xst
 *_bitgen.xwbt
 *_envsettings.html
