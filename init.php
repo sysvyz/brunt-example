@@ -6,45 +6,46 @@
  * Time: 16:21
  */
 
-use Svz\App;
-use Svz\Controller\HomeController;
 use Brunt\Injector;
-use Brunt\Testobjects;
-
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
 use Brunt\Binding;
-use Svz\Dispatcher;
-use Symfony\Component\HttpFoundation\Request;
-
 use function \Brunt\bind;
 
-require __DIR__ . '/vendor/autoload.php';
+use Svz\App;
+use Svz\Controller\HomeController;
+use Svz\Dispatcher;
 
-function bootstrap()
+use Symfony\Component\HttpFoundation\Request;
+
+
+function bootstrap($DIR)
 {
+    require $DIR . '/vendor/autoload.php';
     $injector = new Injector();
 
     $injector->bind([
-        Binding::init('%BASE_DIR%')->toValue(__DIR__),
+        Binding::init('%BASE_DIR%')->toValue($DIR),
 
         /*
          * App
          */
         bind(App::class)
-            ->toClass(App::class),
+            ->toClass(App::class)->lazy()->singleton(),
 
         bind(HomeController::class)
-            ->toClass(HomeController::class),
+            ->toClass(HomeController::class)->singleton(),
 
         bind(Dispatcher::class)
             ->toClass(Dispatcher::class),
 
         bind(Request::class)
             ->toFactory(function () {
-                return Request::createFromGlobals();
-            })
+
+                static $request = null;
+                if ($request === null) {
+                    $request = Request::createFromGlobals();
+                }
+                return $request;
+            })->singleton()
 
     ]);
 

@@ -3,7 +3,11 @@ use Svz\App;
 
 include "init.php";
 
-bootstrap()->{App::class}->run();
+$app = bootstrap(__DIR__)->{App::class};
+echo '...app...';
+
+/** @var App $app */
+$app->run();
 
 
 /*
@@ -11,6 +15,7 @@ CALL SEQUENCE:
 
 index.php
     init.php
+    get(App)
     app->run()
         dispather
         homecontroller

@@ -1,13 +1,12 @@
 <?php
 namespace Svz;
 
-use Brunt\Injectable;
 use Brunt\Injector;
 use Svz\Controller\HomeController;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class App extends Injectable
+class App
 {
     /**
      * @var Logger
@@ -35,7 +34,7 @@ class App extends Injectable
                                 Dispatcher $dispatcher
     )
     {
-
+        print_r('App.construct...');
         $this->injector = $injector;
         $this->dispatcher = $dispatcher;
     }

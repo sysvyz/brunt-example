@@ -34,10 +34,10 @@ class Dispatcher extends Injectable
     }
 
 
-    public function dispatch(){
-        $path = explode('/',rtrim($this->request->query->get('%REWRITE_URL%')," /"));
+    public function dispatch()
+    {
 
-        //do some logic
+        $path = explode('/', rtrim($this->request->query->get('%REWRITE_URL%'), " /"));
 
         return HomeController::class;
 

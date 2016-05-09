@@ -6,9 +6,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
-
+    /**
+     * @var SomeService
+     */
     private $service;
 
+    /**
+     * HomeController constructor.
+     * @param Request $request
+     * @param SomeService $service
+     */
     public function __construct(Request $request, SomeService $service)
     {
         parent::__construct($request);

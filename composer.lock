@@ -191,12 +191,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sysvyz/brunt.git",
-                "reference": "a97c2fe88ddb7e41b1c6abcd623c37418bb7ea23"
+                "reference": "e71e29cbb35aad26887c750802d363f598e03be6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sysvyz/brunt/zipball/a97c2fe88ddb7e41b1c6abcd623c37418bb7ea23",
-                "reference": "a97c2fe88ddb7e41b1c6abcd623c37418bb7ea23",
+                "url": "https://api.github.com/repos/sysvyz/brunt/zipball/e71e29cbb35aad26887c750802d363f598e03be6",
+                "reference": "e71e29cbb35aad26887c750802d363f598e03be6",
                 "shasum": ""
             },
             "require": {
@@ -230,7 +230,7 @@
                 "dependency injection",
                 "di"
             ],
-            "time": "2016-05-07 14:42:00"
+            "time": "2016-05-09 01:19:09"
         }
     ],
     "packages-dev": [
