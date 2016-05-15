@@ -1,6 +1,5 @@
 <?php
-namespace Svz\Model;
-use Brunt\InjectableInterface;
+namespace Svz\Service;
 
 /**
  * Created by PhpStorm.
@@ -30,6 +29,6 @@ class SomeService
 
     public static function _DI_DEPENDENCIES()
     {
-       return ['basePath' => '%BASE_DIR%'];
+       return ['basePath' => '%ENV:BASE_DIR%'];
     }
 }
