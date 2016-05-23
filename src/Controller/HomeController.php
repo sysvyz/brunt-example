@@ -38,7 +38,6 @@ class HomeController implements ControllerInterface
     public function __construct(Request $request, DBService $service)
     {
 
-        echo 'Controller.construct...' . PHP_EOL;
         $this->service = $service;
         $this->request = $request;
     }
@@ -46,35 +45,14 @@ class HomeController implements ControllerInterface
     public function execute()
     {
 
-
-        $r = new \ReflectionClass(Car::class);
-        $ps = $r->getConstructor()->getParameters();
-
-        foreach ($ps as $p){
-           $b =  $p->getType()->isBuiltin();
-
-            echo ($b)?'true':'false';
-        }
-
-
-        echo 'Controller.execute...' . PHP_EOL;
-
-
         $product = new Product();
         $product->setName('p:' . md5(microtime()));
-        $product->setPrice((float)rand(1,100));
-        
-        $product2 = new Product();
-        $product2->setName('p:' . md5(microtime()));
-        $product2->setPrice((float)rand(1,100));
-        
-
+        $product->setPrice((float)rand(1,10000)/100);
 
         $this->service->save($product);
 
         echo "Created Product: " . $product->getName() . " with ID " . $product->getId() . "\n";
         
-      
 
     }
 

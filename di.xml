@@ -1,0 +1,24 @@
+<bootstrap>
+    <bindings>
+        <bind name="App">
+            <class name="Svz\App"/>
+        </bind>
+        <bind name="Dispatcher">
+            <class name="Svz\Dispatcher\Dispatcher"/>
+        </bind>
+        <bind name="HomeController">
+            <class name="Svz\Controller\HomeController"/>
+        </bind>
+        <bind name="HomeController">
+            <eval>
+                function () {
+                static $request = null;
+                if ($request === null) {
+                $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
+                }
+                return $request;
+                }
+            </eval>
+        </bind>
+    </bindings>
+</bootstrap>

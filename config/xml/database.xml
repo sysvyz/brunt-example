@@ -1,0 +1,11 @@
+<database>
+    <!-- driver: Required -->
+    <connection
+            driver=""
+            host="localhost"
+            username=""
+            password=""
+            memory="false"
+    >
+    </connection>
+</database>

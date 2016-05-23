@@ -1,33 +1,41 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mb
- * Date: 18.04.16
- * Time: 16:21
- */
 
 use Brunt\Binding;
 use Brunt\Injector;
 use function Brunt\bind;
 
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Svz\App;
-use Svz\Controller\HomeController;
 use Svz\Dispatcher;
 
 use Symfony\Component\HttpFoundation\Request;
 
 
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+
+$configDirectories = array(__DIR__.'/app/config');
+
+$locator = new FileLocator($configDirectories);
+$yamlUserFiles = $locator->locate('users.yml', null, false);
+
+
+$delegatingLoader->load(__DIR__.'/users.yml');
+/*
+The YamlUserLoader will be used to load this resource,
+since it supports files with a "yml" extension
+*/
 function bootstrap($DIR)
 {
-    echo '...bootstrap...' . PHP_EOL;
     require_once $DIR . '/vendor/autoload.php';
     Binding::init('');//require Binding;
 
     $injector = new Injector();
     
-    $injector->bind([
+    $injector->bind(
 
         bind('%ENV:BASE_DIR%')
             ->toValue($DIR),
@@ -38,47 +46,52 @@ function bootstrap($DIR)
             }),
         
         bind("%ENV:DB:CONFIG:PATH%")
+            ->singleton()
             ->toFactory(function (Injector $injector) {
                 return $injector->{'%ENV:BASE_DIR%'} . "/config/database.php";
-            })->singleton(),
+            }),
 
         bind("%DOCTRINE:CONFIG:PATH%")
+            ->singleton()
             ->toFactory(function (Injector $injector) {
                 return [$injector->{'%ENV:BASE_DIR%'} . "/config/xml/orm"];
-            })
-            ->singleton(),
+            }),
 
         bind(EntityManager::class)->toFactory(function (Injector $injector) {
 
-            $injector->bind([
-                    
+            $injector->bind(
                     bind("%DOCTRINE:DB:PARAMS%")
                         ->toFactory(function (Injector $injector) {
                             return include($injector->{"%ENV:DB:CONFIG:PATH%"});
                         })
                         ->singleton(),
-                    bind("%DOCTRINE:CONFIG%")
+                    bind(Configuration::class)
                         ->toFactory(function (Injector $injector) {
                             return Setup::createXMLMetadataConfiguration(
                                 $injector->{"%DOCTRINE:CONFIG:PATH%"},
                                 $injector->{"%ENV:DEV%"}
                             );
                         })
-                        ->singleton(),
-                ]
+                        ->lazy()
+                        ->singleton()
+
             );
 
             return EntityManager::create(
                 $injector->{"%DOCTRINE:DB:PARAMS%"},
-                $injector->{"%DOCTRINE:CONFIG%"}
+                $injector->{Configuration::class}
             );
         }),
 
 
-        bind(App::class)->lazy()->singleton(),
+        bind(App::class)
+            ->lazy()
+            ->singleton(),
 
         bind(Dispatcher::class)
-            ->toClass(Dispatcher::class),
+            ->toClass(Dispatcher::class)
+            ->singleton()
+            ->lazy(),
 
         bind(Request::class)
             ->toFactory(function () {
@@ -88,9 +101,10 @@ function bootstrap($DIR)
                     $request = Request::createFromGlobals();
                 }
                 return $request;
-            })->singleton()
+            })
+            ->singleton()
 
-    ]);
+    );
 
     return $injector;
 }

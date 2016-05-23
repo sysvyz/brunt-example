@@ -4,6 +4,7 @@ namespace Svz;
 use Brunt\InjectableInterface;
 use Brunt\Injector;
 use Svz\Controller\AbstractController;
+use Svz\Controller\ControllerInterface;
 use Svz\Controller\HomeController;
 use Svz\Controller\OtherController;
 use Svz\Service\DBService;
@@ -56,7 +57,6 @@ class App implements InjectableInterface
                                 Request $request
     )
     {
-        echo 'App.construct...' . PHP_EOL;
         $this->injector = $injector;
         $this->dispatcher = $dispatcher;
         $this->request = $request;
@@ -65,11 +65,9 @@ class App implements InjectableInterface
     public function run()
     {
 
-        echo 'App.run...' . PHP_EOL;
-
         /** @var string $controllerToken */
         $controllerToken = $this->dispatcher->dispatch();
-        /** @var AbstractController $controller */
+        /** @var ControllerInterface $controller */
         $controller = $this->injector->{$controllerToken};
 
         $controller->execute();

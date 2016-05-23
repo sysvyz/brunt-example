@@ -38,12 +38,8 @@ class Dispatcher extends Injectable
     public function dispatch()
     {
 
-
-
-
         $path = [];
-
-       
+        
         $hasArgs = $this->request->server->has('argv');
 
         if($hasArgs){
@@ -54,23 +50,16 @@ class Dispatcher extends Injectable
             $path = explode('/', rtrim($this->request->query->get('%REWRITE_URL%'), " /"));
         }
 
-
-
-
-        $mapping = [
-            'aaa' => HomeController::class,
+        
+        $mapping = [            
             'other' => OtherController::class,
-
-
         ];
-
-
+        
         if(sizeof($path) && isset($mapping[$path[0]])){
             return $mapping[$path[0]];
         }
 
-
-
+        
         return HomeController::class;
 
     }
