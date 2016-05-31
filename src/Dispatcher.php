@@ -1,73 +1,79 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mb
- * Date: 21.04.16
- * Time: 01:32
- */
 
 namespace Svz;
 
 
-use Brunt\Injectable;
-use Brunt\Injector;
+use Brunt\InjectableInterface;
+use Brunt\Reflection\Invoker;
+use Klein\AbstractRouteFactory;
+use Klein\DataCollection\RouteCollection;
+use Klein\Klein;
+use Klein\Request;
+use Klein\Response;
+use Klein\RouteFactory;
+use Klein\ServiceProvider;
 use Svz\Controller\HomeController;
-use Svz\Controller\OtherController;
-use Symfony\Component\HttpFoundation\Request;
 
 
-class Dispatcher extends Injectable
+class Dispatcher extends Klein implements InjectableInterface
 {
-    /**
-     * @var Request
-     */
-    private $request;
 
-
-    /**
-     * Dispatcher constructor.
-     * @param Request $request
-     * @param Injector $injector
-     */
-    public function __construct(Request $request)
+    public function __construct(
+        ServiceProvider $service = null,
+        $app = null,
+        RouteCollection $routes = null,
+        AbstractRouteFactory $route_factory = null)
     {
-        $this->request = $request;
+        parent::__construct($service, $app, $routes, $route_factory);
     }
 
-
-    public function dispatch()
+    public static function _DI_DEPENDENCIES()
     {
-
-        $path = [];
-        
-        $hasArgs = $this->request->server->has('argv');
-
-        if($hasArgs){
-            $arr = $this->request->server->get('argv');
-            array_shift($arr);
-            $path = $arr;
-        }else{
-            $path = explode('/', rtrim($this->request->query->get('%REWRITE_URL%'), " /"));
-        }
-
-        
-        $mapping = [            
-            'other' => OtherController::class,
+        return [
+            'app' => App::class,
         ];
-        
-        if(sizeof($path) && isset($mapping[$path[0]])){
-            return $mapping[$path[0]];
-        }
-
-        
-        return HomeController::class;
-
     }
 
-}
+    public static function _DI_PROVIDERS()
+    {
+        return [
 
-class UrlPath {
+        ];
+    }
 
-    
+    public function respond($method, $path = '*',  $callback = null)
+    {
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
 
+        if(is_array($callback)){
+
+            $callback = function (Request $request,
+                                  Response $response,
+                                  ServiceProvider $service,
+                                  App $app,
+                                  Dispatcher $dispatcher,
+                                  RouteCollection $matched,
+                                  $methods_matched)use ($callback){
+                if($matched->count()>0){
+                    return;
+                }
+
+                $injector = $app->getInjector();
+                $controller = $injector->{$callback[0]};
+                $invoker = $injector->get(Invoker::class);
+                try{
+                    $res =  $invoker->invoke($controller,$callback[1]);
+                    return $res;
+                }catch (\ReflectionException $e){
+                    var_dump($e->getMessage());
+                }
+
+            };
+        }
+        return parent::respond($method, $path, $callback);
+    }
 }

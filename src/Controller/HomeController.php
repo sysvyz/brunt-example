@@ -1,28 +1,24 @@
 <?php
 namespace Svz\Controller;
 
-use BruntTest\Testobjects\Car;
-use Doctrine\ORM\EntityManager;
+
+use Klein\Request;
 use Svz\Entity\Product;
 use Svz\Service\DBService;
-use Svz\Service\SomeService;
-use Symfony\Component\HttpFoundation\Request;
 
-class HomeController implements ControllerInterface
+class HomeController
 {
     /**
-     * @var SomeService
+     * @var DBService
      */
     private $service;
+
     /**
-     * @var EntityManager
+     * @var Request
      */
-    private $entityManager;
-    /**
-     * @var SomeService
-     */
-    private $someService;
-    
+    private $request;
+
+
     public static function _DI_PROVIDERS()
     {
         return [
@@ -31,9 +27,7 @@ class HomeController implements ControllerInterface
     /**
      * HomeController constructor.
      * @param Request $request
-     * @param DBService|SomeService $service
-     * @param SomeService $someService
-     * @param EntityManager $entityManager
+     * @param DBService $service
      */
     public function __construct(Request $request, DBService $service)
     {
@@ -57,4 +51,17 @@ class HomeController implements ControllerInterface
     }
 
 
+    public function index(){
+
+
+        $product = new Product();
+        $product->setName('p:' . md5(microtime()));
+        $product->setPrice((float)rand(1,10000)/100);
+
+        $this->service->save($product);
+
+        echo "Created Product: " . $product->getName() . " with ID " . $product->getId() . "<br>\n";
+
+        echo "Home@index";
+    }
 }

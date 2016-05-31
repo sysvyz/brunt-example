@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2369eedc25562d3991e945617ce93f3",
-    "content-hash": "50845caa664f02c4e007a82191b67af8",
+    "hash": "d54d2c6f664266b0a55f4577443e68cf",
+    "content-hash": "d0c236406d0e029484b192e5f1cfc15b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -550,6 +550,62 @@
             "time": "2015-08-31 13:19:01"
         },
         {
+            "name": "klein/klein",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/klein/klein.php.git",
+                "reference": "5dc073f05adb67ee09680545b4cc7b0590d2559e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/klein/klein.php/zipball/5dc073f05adb67ee09680545b4cc7b0590d2559e",
+                "reference": "5dc073f05adb67ee09680545b4cc7b0590d2559e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/php-code-coverage": "1.2.x",
+                "phpunit/phpunit": "3.7.x",
+                "squizlabs/php_codesniffer": "1.4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Klein\\": "src/Klein/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris O'Hara",
+                    "email": "cohara87@gmail.com",
+                    "homepage": "http://chris6f.com/",
+                    "role": "Creator/Developer"
+                },
+                {
+                    "name": "Trevor Suarez",
+                    "email": "rican7@gmail.com",
+                    "homepage": "http://about.me/tnsuarez",
+                    "role": "Contributor/Developer"
+                }
+            ],
+            "description": "A lightning fast router for PHP",
+            "homepage": "https://github.com/chriso/klein.php",
+            "keywords": [
+                "boilerplate",
+                "router",
+                "routing",
+                "sinatra"
+            ],
+            "time": "2014-11-07 07:35:23"
+        },
+        {
             "name": "lcobucci/jwt",
             "version": "3.1.1",
             "source": {
@@ -996,12 +1052,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sysvyz/brunt.git",
-                "reference": "1c89fc281f4860492e3e745506a3d53f8d38b9b2"
+                "reference": "8da1d7d58de288b2a202904e1078e7829eb34362"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sysvyz/brunt/zipball/1c89fc281f4860492e3e745506a3d53f8d38b9b2",
-                "reference": "1c89fc281f4860492e3e745506a3d53f8d38b9b2",
+                "url": "https://api.github.com/repos/sysvyz/brunt/zipball/8da1d7d58de288b2a202904e1078e7829eb34362",
+                "reference": "8da1d7d58de288b2a202904e1078e7829eb34362",
                 "shasum": ""
             },
             "require": {
@@ -1035,7 +1091,54 @@
                 "dependency injection",
                 "di"
             ],
-            "time": "2016-05-22 22:34:50"
+            "time": "2016-05-29 22:01:30"
+        },
+        {
+            "name": "sysvyz/hurl",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sysvyz/hurl.git",
+                "reference": "271942e5618670318fb1439e63f81248dc303272"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sysvyz/hurl/zipball/271942e5618670318fb1439e63f81248dc303272",
+                "reference": "271942e5618670318fb1439e63f81248dc303272",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hurl\\": "src",
+                    "HurlTest\\": "test"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Moritz Bauer",
+                    "email": "mb@sysvyz.org",
+                    "homepage": "http://sysvyz.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP7 language wrapper",
+            "homepage": "https://github.com/sysvyz/hurl",
+            "keywords": [
+                "language wrapper",
+                "lr"
+            ],
+            "time": "2016-05-27 22:36:52"
         }
     ],
     "packages-dev": [
@@ -1248,16 +1351,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "3.3.1",
+            "version": "3.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2431befdd451fac43fbcde94d1a92fb3b8b68f86"
+                "reference": "44cd8e3930e431658d1a5de7d282d5cb37837fd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2431befdd451fac43fbcde94d1a92fb3b8b68f86",
-                "reference": "2431befdd451fac43fbcde94d1a92fb3b8b68f86",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/44cd8e3930e431658d1a5de7d282d5cb37837fd5",
+                "reference": "44cd8e3930e431658d1a5de7d282d5cb37837fd5",
                 "shasum": ""
             },
             "require": {
@@ -1307,7 +1410,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-04-08 08:14:53"
+            "time": "2016-05-27 16:24:29"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2137,10 +2240,13 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "sysvyz/brunt": 20
+        "sysvyz/brunt": 20,
+        "sysvyz/hurl": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7.0.0"
+    },
     "platform-dev": []
 }

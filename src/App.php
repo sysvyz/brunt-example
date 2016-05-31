@@ -1,23 +1,13 @@
 <?php
 namespace Svz;
 
-use Brunt\InjectableInterface;
 use Brunt\Injector;
-use Svz\Controller\AbstractController;
-use Svz\Controller\ControllerInterface;
-use Svz\Controller\HomeController;
-use Svz\Controller\OtherController;
+use Klein\Request;
 use Svz\Service\DBService;
-use Symfony\Component\HttpFoundation\Request;
 
 
-class App implements InjectableInterface
+class App extends \Klein\App
 {
-    /**
-     * @var Logger
-     */
-    private $logger;
-
     /**
      * @var Injector
      */
@@ -25,13 +15,15 @@ class App implements InjectableInterface
 
 
     /**
-     * @var Dispatcher
+     * App constructor.
+     * @param Injector $injector
+     * @param Request $request
+     * @param Dispatcher $dispatcher
      */
-    private $dispatcher;
-    /**
-     * @var Request
-     */
-    private $request;
+    public function __construct(Injector $injector)
+    {
+        $this->injector = $injector;
+    }
 
     public static function _DI_DEPENDENCIES()
     {
@@ -41,37 +33,16 @@ class App implements InjectableInterface
     public static function _DI_PROVIDERS()
     {
         return [
-            OtherController::class,
-            HomeController::class,
             DBService::class
         ];
     }
+
     /**
-     * App constructor.
-     * @param Injector $injector
-     * @param Request $request
-     * @param Dispatcher $dispatcher
+     * @return Injector
      */
-    public function __construct(Injector $injector,
-                                Dispatcher $dispatcher,
-                                Request $request
-    )
+    public function getInjector()
     {
-        $this->injector = $injector;
-        $this->dispatcher = $dispatcher;
-        $this->request = $request;
-    }
-
-    public function run()
-    {
-
-        /** @var string $controllerToken */
-        $controllerToken = $this->dispatcher->dispatch();
-        /** @var ControllerInterface $controller */
-        $controller = $this->injector->{$controllerToken};
-
-        $controller->execute();
-
+        return $this->injector;
     }
 
 }

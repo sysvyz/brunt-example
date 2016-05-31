@@ -1,111 +1,36 @@
 <?php
-
+require_once 'vendor/sysvyz/brunt/src/Binding.php';
 use Brunt\Binding;
 use Brunt\Injector;
+
 use function Brunt\bind;
 
-use Doctrine\ORM\Configuration;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
-use Svz\App;
-use Svz\Dispatcher;
-
-use Symfony\Component\HttpFoundation\Request;
+const APP_PATH = '/testproject';
+const DEV_MODE = true;
 
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderResolver;
-use Symfony\Component\Config\Loader\DelegatingLoader;
-
-$configDirectories = array(__DIR__.'/app/config');
-
-$locator = new FileLocator($configDirectories);
-$yamlUserFiles = $locator->locate('users.yml', null, false);
+const DI_APP_PATH = '%ENV_APP_PATH%';
+const DI_BASE_DIR = "%ENV_BASE_DIR%";
+const DI_DEV_MODE = "%DEV%";
 
 
-$delegatingLoader->load(__DIR__.'/users.yml');
-/*
-The YamlUserLoader will be used to load this resource,
-since it supports files with a "yml" extension
-*/
-function bootstrap($DIR)
+function bootstrap()
 {
-    require_once $DIR . '/vendor/autoload.php';
-    Binding::init('');//require Binding;
+    require_once __DIR__ . '/vendor/autoload.php';
 
     $injector = new Injector();
-    
+
     $injector->bind(
-
-        bind('%ENV:BASE_DIR%')
-            ->toValue($DIR),
-        
-        bind("%ENV:DEV%")
-            ->toFactory(function (Injector $injector) {
-                return true;
-            }),
-        
-        bind("%ENV:DB:CONFIG:PATH%")
-            ->singleton()
-            ->toFactory(function (Injector $injector) {
-                return $injector->{'%ENV:BASE_DIR%'} . "/config/database.php";
-            }),
-
-        bind("%DOCTRINE:CONFIG:PATH%")
-            ->singleton()
-            ->toFactory(function (Injector $injector) {
-                return [$injector->{'%ENV:BASE_DIR%'} . "/config/xml/orm"];
-            }),
-
-        bind(EntityManager::class)->toFactory(function (Injector $injector) {
-
-            $injector->bind(
-                    bind("%DOCTRINE:DB:PARAMS%")
-                        ->toFactory(function (Injector $injector) {
-                            return include($injector->{"%ENV:DB:CONFIG:PATH%"});
-                        })
-                        ->singleton(),
-                    bind(Configuration::class)
-                        ->toFactory(function (Injector $injector) {
-                            return Setup::createXMLMetadataConfiguration(
-                                $injector->{"%DOCTRINE:CONFIG:PATH%"},
-                                $injector->{"%ENV:DEV%"}
-                            );
-                        })
-                        ->lazy()
-                        ->singleton()
-
-            );
-
-            return EntityManager::create(
-                $injector->{"%DOCTRINE:DB:PARAMS%"},
-                $injector->{Configuration::class}
-            );
-        }),
-
-
-        bind(App::class)
-            ->lazy()
-            ->singleton(),
-
-        bind(Dispatcher::class)
-            ->toClass(Dispatcher::class)
-            ->singleton()
-            ->lazy(),
-
-        bind(Request::class)
-            ->toFactory(function () {
-
-                static $request = null;
-                if ($request === null) {
-                    $request = Request::createFromGlobals();
-                }
-                return $request;
-            })
-            ->singleton()
-
+        bind(DI_BASE_DIR)->toValue(__DIR__),
+        bind(DI_APP_PATH)->toValue(APP_PATH),
+        bind(DI_DEV_MODE)->toValue(DEV_MODE)
     );
-
+    load_binding($injector, '/bootstrap/brunt.bs.php');
+    load_binding($injector, '/bootstrap/doctrine.bs.php');
+    load_binding($injector, '/bootstrap/klein.bs.php');
+   
     return $injector;
 }
-
+function load_binding(Injector $injector,string $path){
+    $injector->bind(include __DIR__. $path);
+}

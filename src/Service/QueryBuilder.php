@@ -10,11 +10,9 @@ namespace Svz\Service;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 
 class QueryBuilder
@@ -37,27 +35,27 @@ class QueryBuilder
 
     public function expr()
     {
-        return $this->queryBuilder->expr(); 
+        return $this->queryBuilder->expr();
     }
 
     public function getType()
     {
-        return $this->queryBuilder->getType(); 
+        return $this->queryBuilder->getType();
     }
 
     public function getEntityManager()
     {
-        return $this->queryBuilder->getEntityManager(); 
+        return $this->queryBuilder->getEntityManager();
     }
 
     public function getState()
     {
-        return $this->queryBuilder->getState(); 
+        return $this->queryBuilder->getState();
     }
 
     public function getDQL()
     {
-        return $this->queryBuilder->getDQL(); 
+        return $this->queryBuilder->getDQL();
     }
 
     /**
@@ -65,217 +63,223 @@ class QueryBuilder
      */
     public function getQuery()
     {
-        
+
         return new Query($this->queryBuilder->getQuery());
-        
-        
-        
+
+
     }
 
     public function getRootAlias()
     {
-        return $this->queryBuilder->getRootAlias(); 
+        return $this->queryBuilder->getRootAlias();
     }
 
     public function getRootAliases()
     {
-        return $this->queryBuilder->getRootAliases(); 
+        return $this->queryBuilder->getRootAliases();
     }
 
     public function getRootEntities()
     {
-        return $this->queryBuilder->getRootEntities(); 
+        return $this->queryBuilder->getRootEntities();
     }
 
     public function setParameter($key, $value, $type = null)
     {
-        $this->queryBuilder->setParameter($key, $value, $type); 
-        return $this; 
+        $this->queryBuilder->setParameter($key, $value, $type);
+        return $this;
     }
 
     public function setParameters($parameters)
     {
-        $this->queryBuilder->setParameters($parameters); 
+        $this->queryBuilder->setParameters($parameters);
         return $this;
     }
 
     public function getParameters()
     {
-        return $this->queryBuilder->getParameters(); 
+        return $this->queryBuilder->getParameters();
     }
 
     public function getParameter($key)
     {
-        return $this->queryBuilder->getParameter($key); 
+        return $this->queryBuilder->getParameter($key);
     }
 
     public function setFirstResult($firstResult)
     {
-        $this->queryBuilder->setFirstResult($firstResult); 
+        $this->queryBuilder->setFirstResult($firstResult);
         return $this;
     }
 
     public function getFirstResult()
     {
-        return $this->queryBuilder->getFirstResult(); 
+        return $this->queryBuilder->getFirstResult();
     }
 
     public function setMaxResults($maxResults)
     {
-         $this->queryBuilder->setMaxResults($maxResults); 
-        return $this;  }
+        $this->queryBuilder->setMaxResults($maxResults);
+        return $this;
+    }
 
     public function getMaxResults()
     {
-        return $this->queryBuilder->getMaxResults(); 
+        return $this->queryBuilder->getMaxResults();
     }
 
     public function add($dqlPartName, $dqlPart, $append = false)
     {
-        $this->queryBuilder->add($dqlPartName, $dqlPart, $append); 
-        return $this;}
+        $this->queryBuilder->add($dqlPartName, $dqlPart, $append);
+        return $this;
+    }
 
     public function select($select = null)
     {
-        $this->queryBuilder = $this->queryBuilder->select($select); 
+        $this->queryBuilder = $this->queryBuilder->select($select);
         return $this;
     }
 
     public function distinct($flag = true)
     {
-         $this->queryBuilder->distinct($flag); 
-        return $this; }
+        $this->queryBuilder->distinct($flag);
+        return $this;
+    }
 
     public function addSelect($select = null)
     {
-        $this->queryBuilder->addSelect($select); 
+        $this->queryBuilder->addSelect($select);
         return $this;
     }
 
     public function delete($delete = null, $alias = null)
     {
-         $this->queryBuilder->delete($delete, $alias); 
-        return $this;}
+        $this->queryBuilder->delete($delete, $alias);
+        return $this;
+    }
 
     public function update($update = null, $alias = null)
     {
-         $this->queryBuilder->update($update, $alias); 
-        return $this; }
+        $this->queryBuilder->update($update, $alias);
+        return $this;
+    }
 
     public function from($from, $alias, $indexBy = null)
     {
-         $this->queryBuilder->from($from, $alias, $indexBy); 
-        return $this;}
+        $this->queryBuilder->from($from, $alias, $indexBy);
+        return $this;
+    }
 
     public function join($join, $alias, $conditionType = null, $condition = null, $indexBy = null)
     {
-        $this->queryBuilder->join($join, $alias, $conditionType, $condition, $indexBy); 
+        $this->queryBuilder->join($join, $alias, $conditionType, $condition, $indexBy);
         return $this;
     }
 
     public function innerJoin($join, $alias, $conditionType = null, $condition = null, $indexBy = null)
     {
-         $this->queryBuilder->innerJoin($join, $alias, $conditionType, $condition, $indexBy); 
-        return $this; }
+        $this->queryBuilder->innerJoin($join, $alias, $conditionType, $condition, $indexBy);
+        return $this;
+    }
 
     public function leftJoin($join, $alias, $conditionType = null, $condition = null, $indexBy = null)
     {
-         $this->queryBuilder->leftJoin($join, $alias, $conditionType, $condition, $indexBy); 
+        $this->queryBuilder->leftJoin($join, $alias, $conditionType, $condition, $indexBy);
         return $this;
     }
 
     public function set($key, $value)
     {
-         $this->queryBuilder->set($key, $value); 
+        $this->queryBuilder->set($key, $value);
         return $this;
     }
 
     public function where($predicates)
     {
-         $this->queryBuilder->where($predicates); 
+        $this->queryBuilder->where($predicates);
         return $this;
     }
 
     public function andWhere($where)
     {
-         $this->queryBuilder->andWhere($where); 
+        $this->queryBuilder->andWhere($where);
         return $this;
     }
 
     public function orWhere($where)
     {
-         $this->queryBuilder->orWhere($where); 
+        $this->queryBuilder->orWhere($where);
         return $this;
     }
 
     public function groupBy($groupBy)
     {
-        $this->queryBuilder->groupBy($groupBy); 
+        $this->queryBuilder->groupBy($groupBy);
         return $this;
     }
 
     public function addGroupBy($groupBy)
     {
-         $this->queryBuilder->addGroupBy($groupBy); 
+        $this->queryBuilder->addGroupBy($groupBy);
         return $this;
     }
 
     public function having($having)
     {
-         $this->queryBuilder->having($having); 
+        $this->queryBuilder->having($having);
         return $this;
     }
 
     public function andHaving($having)
     {
-        $this->queryBuilder->andHaving($having); 
+        $this->queryBuilder->andHaving($having);
         return $this;
     }
 
     public function orHaving($having)
     {
 
-         $this->queryBuilder->orHaving($having); 
+        $this->queryBuilder->orHaving($having);
         return $this;
     }
 
     public function orderBy($sort, $order = null)
     {
-         $this->queryBuilder->orderBy($sort, $order); 
+        $this->queryBuilder->orderBy($sort, $order);
         return $this;
     }
 
     public function addOrderBy($sort, $order = null)
     {
-         $this->queryBuilder->addOrderBy($sort, $order); 
+        $this->queryBuilder->addOrderBy($sort, $order);
         return $this;
     }
 
     public function addCriteria(Criteria $criteria)
     {
-         $this->queryBuilder->addCriteria($criteria); 
+        $this->queryBuilder->addCriteria($criteria);
         return $this;
     }
 
     public function getDQLPart($queryPartName)
     {
-        return $this->queryBuilder->getDQLPart($queryPartName); 
+        return $this->queryBuilder->getDQLPart($queryPartName);
     }
 
     public function getDQLParts()
     {
-        return $this->queryBuilder->getDQLParts(); 
+        return $this->queryBuilder->getDQLParts();
     }
 
     public function resetDQLParts($parts = null)
     {
-        $this->queryBuilder->resetDQLParts($parts); 
+        $this->queryBuilder->resetDQLParts($parts);
         return $this;
     }
 
     public function resetDQLPart($part)
     {
-        $this->queryBuilder->resetDQLPart($part); 
+        $this->queryBuilder->resetDQLPart($part);
         return $this;
     }
 
@@ -304,7 +308,8 @@ class QueryBuilder
 }
 
 
-class Query  extends AbstractQuery{
+class Query extends AbstractQuery
+{
     /**
      * @var \Doctrine\ORM\Query
      */
@@ -334,12 +339,14 @@ class Query  extends AbstractQuery{
     public function setParameters($parameters)
     {
         $this->query->setParameters($parameters);
-        return $this;}
+        return $this;
+    }
 
     public function setParameter($key, $value, $type = null)
     {
-         $this->query->setParameter($key, $value, $type);
-        return $this; }
+        $this->query->setParameter($key, $value, $type);
+        return $this;
+    }
 
     public function processParameterValue($value)
     {
@@ -349,12 +356,14 @@ class Query  extends AbstractQuery{
     public function setResultSetMapping(\Doctrine\ORM\Query\ResultSetMapping $rsm)
     {
         $this->query->setResultSetMapping($rsm);
-        return $this;}
+        return $this;
+    }
 
     public function setHydrationCacheProfile(QueryCacheProfile $profile = null)
     {
         $this->query->setHydrationCacheProfile($profile);
-        return $this; }
+        return $this;
+    }
 
     public function getHydrationCacheProfile()
     {
@@ -364,22 +373,26 @@ class Query  extends AbstractQuery{
     public function setResultCacheProfile(QueryCacheProfile $profile = null)
     {
         $this->query->setResultCacheProfile($profile);
-        return $this;}
+        return $this;
+    }
 
     public function setResultCacheDriver($resultCacheDriver = null)
     {
         $this->query->setResultCacheDriver($resultCacheDriver);
-        return $this; }
+        return $this;
+    }
 
     public function useResultCache($bool, $lifetime = null, $resultCacheId = null)
     {
-         $this->query->useResultCache($bool, $lifetime, $resultCacheId);
-        return $this; }
+        $this->query->useResultCache($bool, $lifetime, $resultCacheId);
+        return $this;
+    }
 
     public function setResultCacheLifetime($lifetime)
     {
-         $this->query->setResultCacheLifetime($lifetime);
-        return $this;  }
+        $this->query->setResultCacheLifetime($lifetime);
+        return $this;
+    }
 
     /**
      * Retrieves the lifetime of resultset cache.
@@ -395,8 +408,9 @@ class Query  extends AbstractQuery{
 
     public function expireResultCache($expire = true)
     {
-         $this->query->expireResultCache($expire);
-        return $this; }
+        $this->query->expireResultCache($expire);
+        return $this;
+    }
 
     public function getExpireResultCache()
     {
@@ -410,8 +424,9 @@ class Query  extends AbstractQuery{
 
     public function setFetchMode($class, $assocName, $fetchMode)
     {
-         $this->query->setFetchMode($class, $assocName, $fetchMode);
-        return $this; }
+        $this->query->setFetchMode($class, $assocName, $fetchMode);
+        return $this;
+    }
 
     public function getHydrationMode()
     {
@@ -425,12 +440,14 @@ class Query  extends AbstractQuery{
 
     public function getArrayResult()
     {
-        return $this->query->getArrayResult(); 
+        return $this->query->getArrayResult();
     }
+
     public function getCollectionResult()
     {
-        return  new ArrayCollection($this->query->getResult(\Doctrine\ORM\Query::HYDRATE_OBJECT));
+        return new ArrayCollection($this->query->getResult(\Doctrine\ORM\Query::HYDRATE_OBJECT));
     }
+
     public function getScalarResult()
     {
         return $this->query->getScalarResult();
@@ -471,15 +488,11 @@ class Query  extends AbstractQuery{
         return $this->query->execute($parameters, $hydrationMode);
     }
 
-    protected function getHydrationCacheId()
-    {
-        return $this->query->getHydrationCacheId();
-    }
-
     public function setResultCacheId($id)
     {
-         $this->query->setResultCacheId($id);
-        return $this; }
+        $this->query->setResultCacheId($id);
+        return $this;
+    }
 
     public function getResultCacheId()
     {
@@ -498,13 +511,15 @@ class Query  extends AbstractQuery{
 
     public function setQueryCacheDriver($queryCache)
     {
-         $this->query->setQueryCacheDriver($queryCache);
-        return $this; }
+        $this->query->setQueryCacheDriver($queryCache);
+        return $this;
+    }
 
     public function useQueryCache($bool)
     {
-         $this->query->useQueryCache($bool);
-        return $this; }
+        $this->query->useQueryCache($bool);
+        return $this;
+    }
 
     public function getQueryCacheDriver()
     {
@@ -513,8 +528,9 @@ class Query  extends AbstractQuery{
 
     public function setQueryCacheLifetime($timeToLive)
     {
-        return $this->query->setQueryCacheLifetime($timeToLive);
-        return $this; }
+        $this->query->setQueryCacheLifetime($timeToLive);
+        return $this;
+    }
 
     public function getQueryCacheLifetime()
     {
@@ -523,8 +539,9 @@ class Query  extends AbstractQuery{
 
     public function expireQueryCache($expire = true)
     {
-         $this->query->expireQueryCache($expire);
-        return $this; }
+        $this->query->expireQueryCache($expire);
+        return $this;
+    }
 
     public function getExpireQueryCache()
     {
@@ -538,8 +555,9 @@ class Query  extends AbstractQuery{
 
     public function setDQL($dqlQuery)
     {
-         $this->query->setDQL($dqlQuery);
-        return $this;   }
+        $this->query->setDQL($dqlQuery);
+        return $this;
+    }
 
     public function getDQL()
     {
@@ -558,8 +576,9 @@ class Query  extends AbstractQuery{
 
     public function setFirstResult($firstResult)
     {
-        return $this->query->setFirstResult($firstResult);
-        return $this; }
+        $this->query->setFirstResult($firstResult);
+        return $this;
+    }
 
     public function getFirstResult()
     {
@@ -568,8 +587,9 @@ class Query  extends AbstractQuery{
 
     public function setMaxResults($maxResults)
     {
-        return $this->query->setMaxResults($maxResults);
-        return $this;  }
+        $this->query->setMaxResults($maxResults);
+        return $this;
+    }
 
     public function getMaxResults()
     {
@@ -583,22 +603,30 @@ class Query  extends AbstractQuery{
 
     public function setHint($name, $value)
     {
-        return $this->query->setHint($name, $value);
-        return $this; }
+        $this->query->setHint($name, $value);
+        return $this;
+    }
 
     public function setHydrationMode($hydrationMode)
     {
-        return $this->query->setHydrationMode($hydrationMode);
-        return $this; }
+        $this->query->setHydrationMode($hydrationMode);
+        return $this;
+    }
 
     public function setLockMode($lockMode)
     {
-        return $this->query->setLockMode($lockMode);
-        return $this; }
+        $this->query->setLockMode($lockMode);
+        return $this;
+    }
 
     public function getLockMode()
     {
         return $this->query->getLockMode();
+    }
+
+    protected function getHydrationCacheId()
+    {
+        return $this->query->getHydrationCacheId();
     }
 
     /**
