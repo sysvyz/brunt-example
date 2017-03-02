@@ -4,7 +4,7 @@ namespace Svz;
 
 
 use Brunt\InjectableInterface;
-use Brunt\Reflection\Invoker;
+use Brunt\Invoker;
 use Klein\AbstractRouteFactory;
 use Klein\DataCollection\RouteCollection;
 use Klein\Klein;
@@ -64,6 +64,8 @@ class Dispatcher extends Klein implements InjectableInterface
 
                 $injector = $app->getInjector();
                 $controller = $injector->{$callback[0]};
+
+                /** @var Invoker $invoker */
                 $invoker = $injector->get(Invoker::class);
                 try{
                     $res =  $invoker->invoke($controller,$callback[1]);

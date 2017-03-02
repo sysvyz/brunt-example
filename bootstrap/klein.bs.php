@@ -29,31 +29,39 @@ return [
         $v = new ServiceProvider($injector->{Request::class});
         return $v;
     })->singleton(),
-
     bind(Request::class)
         ->toFactory(function (\Brunt\Injector $injector) {
 
-            $request = Request::createFromGlobals();
-            // Grab the server-passed "REQUEST_URI"
-            $uri = $request->server()->get('REQUEST_URI');
+            static $request;
+            if(!$request){
 
-            
-            $strippedUri = substr($uri, strlen($injector->{DI_APP_PATH}));
+                $request = Request::createFromGlobals();
+                // Grab the server-passed "REQUEST_URI"
 
-            $parts = explode('?', $strippedUri);
-            $strippedUri = '/' .
-                implode(
-                    '?',
-                    [
-                        implode('/',
-                            array_filter(explode('/', $parts[0]))
-                        ),
-                        $parts[1]
-                    ]
-                );
 
-            // Set the request URI to a modified one (without the "subdirectory") in it
-            $request->server()->set('REQUEST_URI', $strippedUri);
+                $base = explode('/',$request->server()->get('SCRIPT_NAME'));
+                array_pop($base);
+                $base = implode('/',$base);
+
+                $uri = $request->server()->get('REQUEST_URI');
+
+                $strippedUri = substr($uri, strlen($base));
+
+                $parts = explode('?', $strippedUri);
+
+                $strippedUri = '/' .
+                    implode(
+                        '?',
+                        [
+                            implode('/',
+                                array_filter(explode('/', $parts[0]))
+                            ),
+                            $parts[1]
+                        ]
+                    );
+                // Set the request URI to a modified one (without the "subdirectory") in it
+                $request->server()->set('REQUEST_URI', $strippedUri);
+            }
 
             return $request;
         })->singleton(),

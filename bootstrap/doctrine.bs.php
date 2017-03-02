@@ -4,7 +4,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use function Brunt\bind;
 
-const DI_DOCTRINE_CONFIG = 'Doctrine\ORM\Configuration';;
+const DI_DOCTRINE_CONFIG = 'Doctrine\ORM\Configuration';
+;
 const DI_DOCTRINE_CONFIG_PATH = "%DOCTRINE:CONFIG:PATH%";
 const DI_DOCTRINE_DB_PARAMS = "%DOCTRINE:DB:PARAMS";
 const DI_DB_CONFIG_PATH = "%ENV:DB:CONFIG:PATH%";
@@ -16,19 +17,20 @@ return [
 
     bind(DI_DB_CONFIG_PATH)
         ->toFactory(function (Injector $injector) {
-            return $injector->get(DI_BASE_DIR) . "/config/database.php";
+            return $injector->{DI_BASE_DIR} . "/config/database.php";
         })
         ->singleton(),
 
     bind(DI_DOCTRINE_CONFIG_PATH)
         ->toFactory(function (Injector $injector) {
-            return [$injector->get(DI_BASE_DIR) . "/config/xml/orm"];
+            return [$injector->{DI_BASE_DIR} . "/config/xml/orm"];
         })
         ->singleton(),
 
     bind(DI_DOCTRINE_DB_PARAMS)
         ->toFactory(function (Injector $injector) {
-            return include($injector->get(DI_DB_CONFIG_PATH));
+            /** @noinspection PhpIncludeInspection */
+            return include($injector->{DI_DB_CONFIG_PATH});
         })
         ->singleton(),
 
@@ -41,7 +43,6 @@ return [
         })
         ->lazy()
         ->singleton(),
-
     bind(EntityManager::class)
         ->toFactory(function (Injector $injector) {
             return EntityManager::create(

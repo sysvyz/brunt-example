@@ -14,13 +14,15 @@ $dispatcher->respond('GET', '/other/[:name]', [\Svz\Controller\OtherController::
 $dispatcher->respond('GET', '/other', [\Svz\Controller\OtherController::class, "index"]);
 
 $dispatcher->respond('/', [\Svz\Controller\HomeController::class, 'index']);
+$dispatcher->respond('/add', [\Svz\Controller\HomeController::class, 'execute']);
 
 $dispatcher->respond('*', [\Svz\Controller\ErrorController::class, 'pageDoesNotExist']);
 
 try {
 
     $dispatcher->dispatch($injector->{\Klein\Request::class});
-    
+
+
 } catch (ProviderNotFoundException $e) {
     var_dump($e->getMessage());
     var_dump($e->getFile());
