@@ -47,9 +47,8 @@ class DBService
         return  new SvzQueryBuilder($this->entityManager->createQueryBuilder());
     }
 
-
     /**
-     * @param Entity[] $entity
+     * @param Entity[] $entities
      */
     public function saveAll(array $entities)
     {

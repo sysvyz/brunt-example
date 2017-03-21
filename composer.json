@@ -1,6 +1,6 @@
 {
   "require": {
-    "sysvyz/brunt": "1.0.0",
+    "sysvyz/brunt": "^1.0.0",
     "sysvyz/hurl": "dev-master",
     "doctrine/collections": "^v1.3.0",
     "symfony/http-foundation": "^3.0",

@@ -17,8 +17,6 @@ class App extends \Klein\App
     /**
      * App constructor.
      * @param Injector $injector
-     * @param Request $request
-     * @param Dispatcher $dispatcher
      */
     public function __construct(Injector $injector)
     {

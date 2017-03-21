@@ -10,9 +10,7 @@ use Klein\DataCollection\RouteCollection;
 use Klein\Klein;
 use Klein\Request;
 use Klein\Response;
-use Klein\RouteFactory;
 use Klein\ServiceProvider;
-use Svz\Controller\HomeController;
 
 
 class Dispatcher extends Klein implements InjectableInterface

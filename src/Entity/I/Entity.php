@@ -11,5 +11,8 @@ namespace Svz\Entity\I;
 
 interface Entity
 {
-
+    /**
+     * @return int | string
+     */
+    public function getId();
 }

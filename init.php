@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/sysvyz/brunt/src/Binding.php';
+require_once 'vendor/sysvyz/brunt/src/functions.php';
 use Brunt\Binding;
 use Brunt\Injector;
 
